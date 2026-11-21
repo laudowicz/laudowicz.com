@@ -47,6 +47,7 @@ p{margin:0}
 .lamp{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:16px;display:grid;place-items:center}
 .lamp:hover{border-color:var(--ink)}
 @media(max-width:760px){.nav{display:none}.top .in{justify-content:space-between}.wm{flex:1}}
+@media(min-width:761px) and (max-width:880px){.top .in{gap:10px}.top .wm{font-size:20px}.top .nav{gap:12px;font-size:13.5px;min-width:0}.top .btn{padding:9px 13px;font-size:13px}.top .lang{flex:none}}
 /* hero */
 .hero{padding-block:clamp(40px,8vw,96px) clamp(48px,7vw,88px);overflow-x:clip}
 .hero .in{display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:center}
@@ -300,10 +301,6 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 :root.night .pkwrap>.tabs,:root.night .pkwrap>.pk{opacity:.22;filter:grayscale(1) blur(.6px);pointer-events:none;user-select:none}
 :root.night .spray{display:block;position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-7deg);font:400 clamp(2.4rem,7vw,5.5rem)/1 "Permanent Marker",cursive;color:var(--mark);white-space:nowrap;text-shadow:0 0 24px color-mix(in srgb,var(--mark) 60%,transparent),3px 3px 0 rgba(0,0,0,.4);pointer-events:none;z-index:2}
 :root.night .spray::after{content:"";position:absolute;left:-6%;right:-6%;top:55%;height:.16em;background:var(--mark);border-radius:999px;transform:rotate(2deg);opacity:.85;filter:blur(1.5px)}
-.burn{position:relative;overflow:hidden;margin-top:28px;border:1.5px dashed var(--mark);padding-bottom:64px}.burn h3{font-size:clamp(1.5rem,3vw,2.1rem);margin:6px 0 10px}.burn p{color:var(--mut);max-width:42rem}
-.burn .truck{position:absolute;bottom:12px;left:0;font-size:34px;transform:scaleX(-1);animation:drive 9s linear infinite}
-.burn::after{content:"";position:absolute;left:0;right:0;bottom:12px;border-bottom:2px dashed var(--line)}
-@keyframes drive{0%{left:-60px}100%{left:calc(100% + 20px)}}
 .bugs{position:fixed;left:0;right:0;bottom:calc(6px + env(safe-area-inset-bottom,0px));height:0;z-index:62;pointer-events:none}
 .bug{position:absolute;bottom:0;font-size:24px;line-height:1;border:0;background:none;padding:2px;cursor:pointer;pointer-events:auto;transition:left 2.8s ease-in-out}
 .bug .f{display:inline-block}.bug i{display:inline-block;font-style:normal}.bug.vibe i{animation:vibe .5s ease-in-out infinite alternate}.bug.walk i{animation:walk .16s steps(2) infinite}
@@ -489,6 +486,11 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 @keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
 .note{background:var(--mark);color:#131217;font:600 13px var(--b);text-align:center;padding:8px 16px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* mid-width fixes, 21 Nov: tablet header, the Polaroid fan, wide figures, the contact caption */
+@media(min-width:744px) and (max-width:1240px){.me-row .stack{margin-right:76px}}
+@media(max-width:1300px){.pbody figure.wide{margin-right:0}}
+@media(max-width:380px){.cpic figcaption{white-space:normal;max-width:78vw;font:700 17px/1.25 Caveat,cursive}}
 </style>
 
 
@@ -563,7 +565,6 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
   <div class="dayv">
   <p class="sticky">Can't afford this? Write to me anyway. AI does a lot of my work these days. People are still the reason I do it.</p>
   </div>
-  <div class="card burn nightv"><span class="truck" aria-hidden="true">🚚</span><p class="eb">Planning a burn?</p><h3>I've done the bazillion spreadsheets.</h3><p>Camps, build crews, water, generators, who sleeps where. I've helped plan Burning Man-style festivals and projects for years, and the spreadsheets were half the fun. Oh, and I have a truck licence. Somebody has to drive the truck.</p><a class="btn ghost" href="#contact" data-call>Need a planner (or a driver)?</a></div>
   <div class="card line propc dayv"><div><p class="eb">Need it in writing first?</p><h3 style="font-size:1.4rem">Get a proposal for your boss or your team</h3><p>Pick a package and any add-ons, and I'll send you a proposal as a PDF on my letterhead, ready to forward or attach to an RFP. Usually within one working day.</p></div><a class="btn doc" href="#proposal">Request a proposal <span class="pdf">PDF</span></a></div>
   <p class="dayv askline">Not finding what you are looking for? <a href="#contact" data-call>Schedule a call</a> and we will figure it out.</p>
 </div></section>
