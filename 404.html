@@ -1,0 +1,169 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Lost? — laudowicz.com</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#131217" media="(prefers-color-scheme: dark)"><link rel="stylesheet" href="/fonts/fonts.css"><style>html{box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+
+
+<style>
+:root{--bg:#fff;--ink:#131217;--mut:#5f5c66;--line:#e3e1e7;--soft:#f5f4f7;--mark:#ff8fc0;--lemon:#ffe14d;--catbody:#fff;
+--d:"Bricolage Grotesque",Inter,system-ui,sans-serif;--b:Inter,system-ui,-apple-system,sans-serif;--h:Caveat,cursive}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121015;--ink:#f4eee6;--mut:#a79f95;--line:#2c2731;--soft:#1c1920;--mark:#ff8a1f;--catbody:#1c1920;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121015;--ink:#f4eee6;--mut:#a79f95;--line:#2c2731;--soft:#1c1920;--mark:#ff8a1f;--catbody:#1c1920;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--b);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1000px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;padding-block:24px}
+.wm{font:800 26px var(--d);letter-spacing:-.03em;text-decoration:none;color:var(--ink)}.wm span{color:var(--mark)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--b);text-decoration:none;border-radius:999px;padding:11px 20px;border:1.5px solid var(--ink);color:var(--ink);background:none}
+.btn.main{background:var(--mark);border-color:var(--mark);color:#131217}
+.stage{position:relative;margin-top:8px}
+.stage svg{width:100%;height:auto;display:block;overflow:visible}
+.dg{font:800 220px var(--d);letter-spacing:-.04em;fill:var(--ink);transform-box:fill-box;transform-origin:50% 100%}
+.dg.down{cursor:pointer}.dg.down:hover{fill:var(--mark)}
+.shelf{fill:var(--soft);stroke:var(--ink);stroke-width:2.5}
+.cat .o{stroke:var(--ink);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.cat .f{fill:var(--catbody)}
+.arm{transform-box:fill-box;transform-origin:100% 50%}
+.tail{transform-box:fill-box;transform-origin:0% 100%;animation:tail 2.4s ease-in-out infinite}
+@keyframes tail{50%{transform:rotate(-14deg)}}
+.zz{font:700 30px var(--h);fill:var(--ink);opacity:0}
+.say{position:absolute;font:700 24px/1.1 var(--h);background:var(--bg);border:1.5px solid var(--ink);border-radius:16px;padding:4px 12px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;transform:translate(-50%,-100%)}
+.say.on{opacity:1}
+.copy{display:grid;gap:14px;max-width:40rem;margin:6px 0 0}
+.eb{font:600 13px var(--b);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:0}
+h1{font:800 clamp(2.1rem,5.4vw,3.8rem)/1.02 var(--d);letter-spacing:-.03em;margin:0;text-wrap:balance}
+.copy p{margin:0;color:var(--mut);font-size:1.1rem}
+.score{font:700 24px var(--h);color:var(--ink)!important}
+.go{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.lost{margin:88px 0 64px;border-top:1px solid var(--line);padding-top:40px}
+.lost h2{font:800 clamp(1.7rem,3.6vw,2.6rem)/1.05 var(--d);letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+.lost>p{color:var(--mut);max-width:40rem;margin:0 0 26px}
+.posters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.pst{background:var(--lemon);color:#131217;border-radius:6px;padding:18px 18px 20px;box-shadow:0 6px 16px rgba(0,0,0,.14);transform:rotate(var(--r));display:grid;gap:8px;min-width:0}
+.pst .big{font:800 30px/1 var(--d);letter-spacing:-.02em;text-transform:uppercase}
+.pst .ph{aspect-ratio:4/3;background:#fff;border:2px solid #131217;border-radius:4px;display:grid;place-items:center;max-width:100%}
+.pst .ph svg{width:60%}
+.pst b{font:700 26px var(--h)}
+.pst small{font:500 13px var(--b)}.pst small a{color:inherit}
+a.pst{text-decoration:none;transition:transform .2s}a.pst:hover{transform:rotate(0) scale(1.03)}
+.pst .meet{font:600 14px var(--b);text-decoration:underline;text-underline-offset:3px}
+.tear{display:flex;gap:4px;margin-top:6px}.tear i{flex:1;min-width:0;height:110px;border:1.5px dashed #131217;border-radius:0 0 4px 4px;border-top:0;display:grid;place-items:center;overflow:hidden}.tear span{writing-mode:vertical-rl;transform:rotate(180deg);font:600 10px var(--b);white-space:nowrap;letter-spacing:.02em}
+.why{margin-top:56px;max-width:40rem;display:grid;gap:12px}.why h2{font:800 clamp(1.5rem,3vw,2.1rem)/1.1 var(--d);letter-spacing:-.02em;margin:0;text-wrap:balance}.why p{margin:0;color:var(--mut)}.why .btn{margin-top:6px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:34px}.how div{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start}.how b{font:800 22px/34px var(--d);width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ink);text-align:center}.how p{margin:4px 0 0;color:var(--mut);font-size:15px}
+.note{font:700 22px var(--h);color:var(--mut);margin-top:22px}
+@media (prefers-reduced-motion:reduce){.tail{animation:none}}
+</style>
+
+<div class="in">
+<header><a class="wm" href="https://laudowicz.com/">laudowicz<span>.</span></a><a class="btn" href="https://laudowicz.com/#contact">Book a call</a></header>
+
+<div class="stage" id="stage">
+<svg viewBox="0 0 900 430" role="img" aria-label="A cat sitting on a shelf, knocking the numbers 4 0 4 onto the floor">
+  <line x1="0" y1="420" x2="900" y2="420" stroke="var(--line)" stroke-width="2"/>
+  <rect class="shelf" x="60" y="232" width="800" height="18" rx="4"/>
+  <path d="M120 250v26M800 250v26" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+  <text class="dg" id="d0" x="110" y="232">4</text>
+  <text class="dg" id="d1" x="260" y="232">0</text>
+  <text class="dg" id="d2" x="410" y="232">4</text>
+  <g class="cat" id="cat">
+    <path class="tail o" d="M822 222c40-4 52-40 34-70" fill="none"/>
+    <rect class="arm o f" id="arm" style="transform:scaleX(.2)" x="560" y="182" width="160" height="22" rx="11"/>
+    <ellipse class="o f" cx="752" cy="190" rx="60" ry="44"/>
+    <circle class="o f" cx="756" cy="126" r="48"/>
+    <path class="o" d="M708 112l6-40 24 22M778 94l24-22 6 40" fill="var(--catbody)"/>
+    <g id="eyes"><ellipse cx="738" cy="124" rx="6" ry="9" fill="var(--ink)"/><ellipse cx="774" cy="124" rx="6" ry="9" fill="var(--ink)"/></g>
+    <g id="sleep" opacity="0"><path class="o" d="M730 126q8 6 16 0M766 126q8 6 16 0" fill="none"/></g>
+    <path class="o" d="M750 140l6 5 6-5M756 145v5" fill="none"/>
+    <path class="o" d="M716 146h-26M716 152l-24 6M796 146h26M796 152l24 6" fill="none" stroke-width="2"/>
+    <text class="zz" id="zz" x="800" y="70">z z z</text>
+  </g>
+</svg>
+<span class="say" id="say"></span>
+</div>
+
+<div class="copy">
+  <p class="eb">404 · Page not found</p>
+  <h1 id="h">A cat knocked this page off the shelf.</h1>
+  <p id="sub">That's just what cats do. Tap the numbers to put them back. She will probably knock them off again.</p>
+  <p class="score" id="score" hidden></p>
+  <div class="go"><a class="btn main" href="https://laudowicz.com/">Take me home</a><a class="btn" href="https://laudowicz.com/#story">Story</a><a class="btn" href="https://laudowicz.com/#blog">Blog</a></div>
+</div>
+
+<section class="lost">
+  <p class="eb">Lost and found</p>
+  <h2>This page is lost for good. These cats aren't lost. They just need a home.</h2>
+  <p>Every time someone lands here, they meet a real cat waiting for a home in one of three cities that are dear to me: Lisbon, Berlin and Honolulu. If you came looking for a page, maybe you leave with a friend.</p>
+  <div class="posters">
+    <a class="pst real" style="--r:-2deg" href="https://www.uniaozoofila.org/adotar/" target="_blank" rel="noopener"><span class="big">Found</span><div class="ph" style="overflow:hidden"><img src="img/cat-salmao.jpg" alt="Salmão, an orange tabby cat" style="width:100%;height:100%;object-fit:cover"></div><b>Salmão</b><small>Young · boy · orange tabby · União Zoófila, Lisbon. Shy at first, now follows people around for cuddles.</small><span class="meet">Meet Salmão &rarr;</span><div class="tear"><i><span>uniaozoofila.org</span></i><i><span>uniaozoofila.org</span></i><i><span>uniaozoofila.org</span></i><i><span>uniaozoofila.org</span></i></div></a>
+    <a class="pst real" style="--r:1.5deg" href="https://tierschutz-berlin.de/tiere/?tierart=Katzen" target="_blank" rel="noopener"><span class="big">Found</span><div class="ph" style="overflow:hidden"><img src="img/cat-oliver.jpg" alt="Oliver Twist, a ginger and white cat" style="width:100%;height:100%;object-fit:cover"></div><b>Oliver Twist</b><small>5 years · boy · ginger and white · Tierheim Berlin. A cuddler once he trusts you. Dreams of a garden.</small><span class="meet">Meet Oliver &rarr;</span><div class="tear"><i><span>tierschutz-berlin.de</span></i><i><span>tierschutz-berlin.de</span></i><i><span>tierschutz-berlin.de</span></i><i><span>tierschutz-berlin.de</span></i></div></a>
+    <a class="pst real" style="--r:-1deg" href="https://www.hawaiianhumane.org/adoptions/available-animals/?speciesID=2" target="_blank" rel="noopener"><span class="big">Found</span><div class="ph" style="overflow:hidden"><img src="img/cat-fernando.jpg" alt="Fernando, a black cat with yellow eyes" style="width:100%;height:100%;object-fit:cover"></div><b>Fernando</b><small>1 year · boy · all black, yellow eyes · Hawaiian Humane Society, Mōʻiliʻili, Honolulu.</small><span class="meet">Meet Fernando &rarr;</span><div class="tear"><i><span>hawaiianhumane.org</span></i><i><span>hawaiianhumane.org</span></i><i><span>hawaiianhumane.org</span></i><i><span>hawaiianhumane.org</span></i></div></a>
+  </div>
+  <div class="how">
+    <div><b>1</b><p>Each shelter keeps its own list of cats up to date, the way it already does.</p></div>
+    <div><b>2</b><p>This page picks three cats at random from those lists, one per city, every time it loads.</p></div>
+    <div><b>3</b><p>Tap a poster and you land on that cat's page at the shelter. No middleman, no fees.</p></div>
+  </div>
+  <p class="note">Real cats, listed on 21 November 2026. Tap a poster to meet them at their shelter.</p>
+  <div class="why">
+    <p class="eb">Why cats?</p>
+    <h2>Because every cat I've loved came from somewhere a little lost.</h2>
+    <p>When my brother and I were small, my mom took in a tiny stray in a village in Italy. We called her Fleckchen, German for "Spotty", because she had spots all over. She came back to Germany with us in an old Volkswagen, together with her one surviving kitten, a little boy we called Mini. He grew into the toughest and sweetest cat on the street.</p>
+    <p>Years later, when I had kids of my own, we adopted two cats from a shelter in Honolulu, Nicholas and Christopher. Best cats in the world. So if a broken link can help one more cat find a home, that's a good use for a broken link.</p>
+    <p><a class="btn" href="https://laudowicz.com/#blog">The whole cat story on the blog</a></p>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var D=[0,1,2].map(function(i){return {el:$("d"+i),up:true,i:i}});
+var arm=$("arm"),cat=$("cat"),say=$("say"),stage=$("stage"),eyes=$("eyes");
+var puts=0,knocks=0,busy=false,done=false;
+var ARM_R=720,ARM_W=160;
+function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function play(el,k,o){var a=el.animate(k,o);return a.finished.then(function(){return a})}
+function cx(d){var b=d.el.getBBox();return b.x+b.width/2}
+function talk(t,ms){var s=stage.getBoundingClientRect(),k=s.width/900;say.textContent=t;say.style.left=(700*k)+"px";say.style.top=(60*k)+"px";say.classList.add("on");return wait(ms||1100).then(function(){say.classList.remove("on")})}
+function look(on){eyes.style.transform=on?"translate(-5px,3px)":"";eyes.style.transition="transform .25s"}
+async function knock(d){
+  busy=true;knocks++;
+  var reach=(ARM_R-(cx(d)+30))/ARM_W;
+  await play(arm,[{transform:"scaleX(.2)"},{transform:"scaleX("+reach+")"}],{duration:380,easing:"cubic-bezier(.3,1.4,.6,1)",fill:"forwards"});
+  await play(d.el,[{transform:"rotate(0)"},{transform:"rotate(-7deg)"},{transform:"rotate(5deg)"},{transform:"rotate(-3deg)"}],{duration:300,fill:"forwards"});
+  play(arm,[{transform:"scaleX("+reach+")"},{transform:"scaleX(.2)"}],{duration:300,easing:"ease-in",fill:"forwards"});
+  var r=(d.i%2?-1:1)*(80+Math.random()*12),dx=-20+Math.random()*30,bb=d.el.getBBox(),dy=Math.round(186-bb.width/2-(bb.y+bb.height-232));
+  d.fall="translate("+dx+"px,"+dy+"px) rotate("+r+"deg)";
+  await play(d.el,[
+    {transform:"translate(0,0) rotate(-3deg)",easing:"cubic-bezier(.5,0,1,.5)"},
+    {transform:"translate("+dx+"px,"+dy+"px) rotate("+r+"deg)",offset:.7,easing:"ease-out"},
+    {transform:"translate("+dx+"px,"+(dy-16)+"px) rotate("+(r*.92)+"deg)",offset:.85,easing:"ease-in"},
+    {transform:d.fall}],{duration:720,fill:"forwards"});
+  d.up=false;d.el.classList.add("down");d.el.setAttribute("role","button");d.el.setAttribute("tabindex","0");d.el.setAttribute("aria-label","Put the "+d.el.textContent+" back on the shelf");
+  busy=false;
+}
+async function putBack(d){
+  if(busy||d.up||done)return;busy=true;
+  d.el.classList.remove("down");d.el.removeAttribute("role");d.el.removeAttribute("tabindex");
+  await play(d.el,[{transform:d.fall},{transform:"translate(0,-60px) rotate(0)",offset:.55},{transform:"translate(0,0) rotate(0)"}],{duration:rm?1:620,easing:"cubic-bezier(.3,1.2,.5,1)",fill:"forwards"});
+  d.up=true;puts++;busy=false;score();
+  if(puts>=4||rm){if(D.every(function(x){return x.up}))return sleep();if(puts===4&&!rm){look(true);await talk("Ugh. Fine.",1000);look(false)}return}
+  await wait(700);look(true);
+  await talk(["Mrrp?","Oh, really?","Nope.","Watch this."][Math.min(puts-1,3)],900);look(false);
+  if(!d.up||done)return;await knock(d);score();
+}
+function score(){var s=$("score");s.hidden=false;s.textContent="You: "+puts+" · Cat: "+knocks}
+async function sleep(){
+  done=true;await wait(500);
+  $("sleep").setAttribute("opacity","1");eyes.setAttribute("opacity","0");
+  var z=$("zz");z.animate([{opacity:0,transform:"translateY(10px)"},{opacity:1,transform:"translateY(0)"}],{duration:900,fill:"forwards"});
+  $("h").textContent="Fine. You win. She's asleep now.";
+  $("sub").textContent="The page is still lost, but the cat likes you. Here's where to go next.";
+}
+D.forEach(function(d){
+  d.el.addEventListener("click",function(){putBack(d)});
+  d.el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();putBack(d)}});
+});
+if(rm){D.forEach(function(d,i){var bb=d.el.getBBox();d.fall="translate(0px,"+Math.round(186-bb.width/2-(bb.y+bb.height-232))+"px) rotate("+(i%2?-82:84)+"deg)";d.el.style.transform=d.fall;d.up=false;d.el.classList.add("down");d.el.setAttribute("role","button");d.el.setAttribute("tabindex","0")});knocks=3;return}
+(async function(){await wait(900);await knock(D[2]);await wait(250);await knock(D[1]);await wait(250);await knock(D[0]);await wait(300);look(true);await talk("Oops.",1000);look(false)})();
+})();
+</script>
+</body></html>
