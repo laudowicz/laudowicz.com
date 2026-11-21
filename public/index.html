@@ -457,7 +457,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 #plExp{transition:transform .3s}.pl.small #plExp{transform:rotate(180deg)}
 .pl-now{flex:1;min-width:0;display:grid;line-height:1.25}
 .pl-now span{font-size:13px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pl-body{display:grid;gap:10px;padding:0 14px 14px;max-height:420px;transition:max-height .45s ease,padding .45s ease}
+.pl-body{display:grid;gap:10px;padding:0 14px 14px;max-height:470px;transition:max-height .45s ease,padding .45s ease}
 .pl.small .pl-body{max-height:0;padding-bottom:0;overflow:hidden}
 .pl-tabs{display:flex;gap:6px}
 .pl-tabs button,.pl-tabs a{flex:1;font:600 13px var(--b);padding:9px 10px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 30%,transparent);background:none;color:inherit;cursor:pointer;text-align:center;text-decoration:none}
@@ -469,6 +469,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 .pl-frame iframe{display:block;border:0;width:100%}
 .pl-frame b{display:block}.pl-frame span span{display:block;font-size:13px;opacity:.7}
 .pl-frame .pl-cover{display:grid;opacity:1}
+.pl-sub{font-size:13px;opacity:.75;text-align:center;margin:0;line-height:1.35}
 .pl-hint{font-size:12px;opacity:.6;text-align:center;margin:0}
 #snd.bump{animation:bump .5s}@keyframes bump{40%{transform:scale(1.35)}}
 .mbar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;align-items:center;cursor:default;border-radius:24px}
@@ -1749,6 +1750,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
   <div class="pl-body" id="plBody">
     <div class="pl-tabs" id="plMoods"><button type="button" data-m="day" aria-selected="true">☀ Daytime chill</button><button type="button" data-m="night" aria-selected="false">☾ After hours</button></div>
     <div class="pl-frame" id="plFrame"></div>
+    <p class="pl-sub" id="plSub"></p>
     <div class="pl-tabs" id="plSrcs"><a data-s="spotify" aria-selected="true" target="_blank" rel="noopener">Spotify</a><a data-s="soundcloud" aria-selected="false" target="_blank" rel="noopener">SoundCloud</a></div>
     <p class="pl-hint">Not your style? Tap the selected one again to open it there.</p>
   </div>
@@ -1808,15 +1810,26 @@ $("lamp").addEventListener("click",function(){var n=R.classList.toggle("night"),
 var asked=false;
 addEventListener("scroll",function(){var tb=$("top");if(scrollY>90)tb.classList.add("small");else if(scrollY<20)tb.classList.remove("small");if(!asked&&scrollY>700)$("music").classList.add("on")},{passive:true});
 // music player: opens big, shrinks to a pill, tucks into the note button
-var SC={t:"Nothing up here yet",u:"https://soundcloud.com/laudowicz",e:"",s:"When I start putting sets up, they land here."};
-var PL={day:{spotify:{t:"Portufornia 2026 \u{1F1F5}\u{1F1F9}",u:"https://open.spotify.com/playlist/6vz6KZLhY8uZUu6OncQFcW",e:"6vz6KZLhY8uZUu6OncQFcW",s:"Lagoon hours. Portugal meets California."},soundcloud:SC},
- night:{spotify:{t:"After hours",u:"https://open.spotify.com/user/1213189791/playlists",e:"",s:"Still picking which one of these goes public."},soundcloud:SC}},
+var SCD={t:"Hammock Hangout",u:"https://soundcloud.com/sundaesue/hammockhangout-thespacebetween-wakinglife",sc:"https://soundcloud.com/sundaesue/hammockhangout-thespacebetween-wakinglife",at:1440,s:"Starts 24 minutes in, at the good bit."},
+ SCN={t:"Barbatana \u00b7 Ericeira",u:"https://soundcloud.com/nadav-lapid/barbatana-ericeira",sc:"https://soundcloud.com/nadav-lapid/barbatana-ericeira",at:503,s:"Picks up at 8:23."};
+var PL={day:{spotify:{t:"Portufornia 2026 \u{1F1F5}\u{1F1F9}",u:"https://open.spotify.com/playlist/6vz6KZLhY8uZUu6OncQFcW",e:"6vz6KZLhY8uZUu6OncQFcW",s:"Lagoon hours. Portugal meets California."},soundcloud:SCD},
+ night:{spotify:{t:"Good Vibes Only",u:"https://open.spotify.com/playlist/67R9thuMvGKOJOcLgjDH1t",e:"67R9thuMvGKOJOcLgjDH1t",s:"For when the lights go off."},soundcloud:SCN}},
  EMB=/(^|\.)laudowicz\.com$|(^|\.)pages\.dev$/.test(location.hostname),
  mood="day",src="spotify",open=false;
-function drawPl(){var d=PL[mood][src],nm=src==="spotify"?"Spotify":"SoundCloud",F=$("plFrame");
- $("plMood").textContent=mood==="day"?"Daytime chill":"After hours";$("plSrc").textContent=nm+" · "+d.t;
+var scLoad=0,scQ=[];
+function scReady(fn){if(window.SC&&window.SC.Widget)return fn();scQ.push(fn);if(scLoad)return;scLoad=1;
+ var s=document.createElement("script");s.src="https://w.soundcloud.com/player/api.js";
+ s.onload=function(){var q=scQ;scQ=[];q.forEach(function(f){try{f()}catch(e){}})};
+ s.onerror=function(){scQ=[];scLoad=0};document.head.appendChild(s)}
+function wireSC(d){if(!d.at)return;var f=$("plFrame").querySelector("iframe");if(!f)return;
+ scReady(function(){if(!document.body.contains(f)||!window.SC||!window.SC.Widget)return;
+  var w=window.SC.Widget(f),done=0;
+  w.bind(window.SC.Widget.Events.PLAY,function(){if(done)return;done=1;w.seekTo(d.at*1000)})})}
+function drawPl(){var d=PL[mood][src],nm=src==="spotify"?"Spotify":"SoundCloud",F=$("plFrame"),emb=d.e||d.sc;
+ $("plMood").textContent=mood==="day"?"Daytime chill":"After hours";$("plSrc").textContent=nm+" · "+d.t;$("plSub").textContent=d.s;
  if(d.e&&EMB){F.classList.add("emb");F.innerHTML='<iframe title="'+d.t+' on Spotify" src="https://open.spotify.com/embed/playlist/'+d.e+'?theme=0" height="232" loading="lazy" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" referrerpolicy="no-referrer"></iframe>'}
- else{F.classList.remove("emb");F.innerHTML='<span class="pl-cover'+(mood==="night"?" n":"")+'" aria-hidden="true">'+(mood==="day"?"☀":"\u{1FAA9}")+'</span><span><b>'+d.t+'</b><span>'+nm+'</span><span>'+(d.e?"The "+nm+" player sits here on the live site.":d.s)+'</span></span>'}
+ else if(d.sc&&EMB){F.classList.add("emb");F.innerHTML='<iframe title="'+d.t+' on SoundCloud" src="https://w.soundcloud.com/player/?url='+encodeURIComponent(d.sc)+'&visual=true&auto_play=false&hide_related=true" height="232" scrolling="no" frameborder="no" allow="autoplay; encrypted-media"></iframe>';wireSC(d)}
+ else{F.classList.remove("emb");F.innerHTML='<span class="pl-cover'+(mood==="night"?" n":"")+'" aria-hidden="true">'+(mood==="day"?"☀":"\u{1FAA9}")+'</span><span><b>'+d.t+'</b><span>'+nm+'</span><span>'+(emb?"The "+nm+" player sits here on the live site.":d.s)+'</span></span>'}
  [].forEach.call($("plMoods").children,function(b){b.setAttribute("aria-selected",String(b.dataset.m===mood))});
  [].forEach.call($("plSrcs").children,function(a){var on=a.dataset.s===src;a.setAttribute("aria-selected",String(on));a.href=PL[mood][a.dataset.s].u;a.title=on?"Open in "+a.textContent:""})}
 function showPl(big){open=true;asked=true;$("music").classList.remove("on");var P=$("player");P.classList.remove("gone");P.classList.toggle("small",!big);$("plExp").setAttribute("aria-expanded",String(big));$("snd").setAttribute("aria-pressed","true")}
@@ -1827,7 +1840,7 @@ $("plExp").addEventListener("click",function(){var small=!$("player").classList.
 $("plMin").addEventListener("click",function(){var P=$("player");if(!P.classList.contains("small")){P.classList.add("small");$("plExp").setAttribute("aria-expanded","false")}else hidePl()});
 $("plMoods").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mood=b.dataset.m;drawPl()});
 $("plSrcs").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;if(a.dataset.s!==src){e.preventDefault();src=a.dataset.s;drawPl()}});
-$("plPlay").addEventListener("click",function(){var d=PL[mood][src],r=this.getBoundingClientRect();if(d.e&&EMB){showPl(true);toast("Press play in the player below.");return}toast(d.e?"Plays right here once this is live on laudowicz.com.":"Nothing to play there yet.",r.left+r.width/2,r.top-110)});
+$("plPlay").addEventListener("click",function(){var d=PL[mood][src],e=d.e||d.sc,r=this.getBoundingClientRect();if(e&&EMB){showPl(true);toast("Press play in the player below.");return}toast(e?"Plays right here once this is live on laudowicz.com.":"Nothing to play there yet.",r.left+r.width/2,r.top-110)});
 $("lamp").addEventListener("click",function(){mood=R.classList.contains("night")?"night":"day";drawPl()});
 drawPl();
 // a colour for everybody
