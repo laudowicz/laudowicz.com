@@ -297,8 +297,23 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 .row2{display:grid;gap:14px}@media(min-width:640px){.row2{grid-template-columns:1fr 1fr}}
 .addons{display:grid;gap:8px}.addons .lab{font:600 14px var(--b)}.pform label.chk{display:flex;gap:10px;align-items:center;font-weight:400;font-size:15px}.chk input{width:18px;height:18px;accent-color:var(--ink)}
 .pnote{font-size:14px;color:var(--mut);margin:0}.perr{color:#c0392b;font-weight:600;margin:0}.pform .btn{justify-self:start}.pdone{max-width:44rem}
-.lang{display:flex;border:1.5px solid var(--line);border-radius:999px;padding:2px;gap:2px}.lang button{border:0;background:none;color:var(--mut);font:600 12px var(--b);padding:6px 8px;border-radius:999px;cursor:pointer}.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}.lang button[lang=pt]{opacity:.5}
-@media(max-width:700px){.lang{padding:1px}.lang button{padding:6px 6px;font-size:11.5px}}
+.langwrap{position:relative;flex:none}
+.langbtn{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);background:none;
+ color:var(--ink);font:600 12px var(--b);padding:7px 10px;border-radius:999px;cursor:pointer;line-height:1}
+.langbtn svg{width:9px;height:6px;opacity:.6;transition:transform .2s}
+.langbtn[aria-expanded="true"]{border-color:var(--ink)}
+.langbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.lang{position:absolute;top:calc(100% + 8px);right:0;z-index:30;display:grid;gap:2px;min-width:168px;
+ background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:6px;
+ box-shadow:0 14px 34px rgba(0,0,0,.14)}
+.lang button{display:grid;grid-template-columns:28px 1fr;align-items:center;gap:8px;text-align:left;
+ border:0;background:none;color:var(--ink);font:600 14px var(--b);padding:9px 10px;border-radius:9px;cursor:pointer;width:100%}
+.lang button b{font:700 11px var(--b);letter-spacing:.06em;color:var(--mut)}
+.lang button:hover{background:var(--soft)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.lang button[aria-pressed="true"] b{color:var(--bg);opacity:.72}
+.lang button[lang=pt]{opacity:.55}
+@media(max-width:700px){.langbtn{padding:6px 9px}}
 .em-night{display:none}:root.night .em-night{display:inline}:root.night .em-day{display:none}
 .nightv{display:none}:root.night .nightv{display:block}:root.night .dayv{display:none}
 .nighti{display:none}:root.night .nighti{display:inline}:root.night .dayi{display:none}
@@ -447,7 +462,6 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 .fnote{font:400 16px "Permanent Marker",cursive;color:var(--ink)}
 .top .btn{background:var(--mark);border-color:var(--mark);color:#131217;white-space:nowrap}
 .wm{white-space:nowrap;color:var(--ink)}
-@media(max-width:360px){.top #snd{display:none}}
 @media(max-width:480px){.top .in{gap:8px}.top .wm{font-size:20px}.top .btn{padding:9px 12px;font-size:13px}.top .lamp{width:32px;height:32px;flex:none}.lang{flex:none}}
 .soc{display:flex;flex-wrap:wrap;gap:16px;font-size:15px}
 .music{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:12px 20px;font:600 14px var(--b);cursor:pointer;transition:transform .4s;z-index:25;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
@@ -503,7 +517,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
  .top .lang{flex:none}.top .lang button{padding:6px 7px}
  .top .lamp{width:34px;height:34px;flex:none}
 }
-@media(max-width:400px){.top #snd{display:none}}
+@media(max-width:355px){.top #snd{display:none}}
 @media(max-width:380px){.wm{font-size:19px}.top .btn{padding:9px 12px;font-size:13px}.top .lang button{padding:5px 6px}.top .lamp{width:32px;height:32px}}
 @media(max-width:345px){.top .lang button[lang=pt]{display:none}.wm{font-size:16px}.top .btn{padding:8px 10px;font-size:12px}.top .in{gap:6px}}
 /* Mobile pass, 22 Nov: readable tables, 44px touch targets, no text under 12.5px */
@@ -579,7 +593,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 <header class="top" id="top"><div class="in">
   <a class="wm" href="#home">laudowicz<span class="dot">.</span></a>
   <nav class="nav" aria-label="Main"><a href="#work">Work and play</a><a href="#packages">Packages</a><a href="#advising">Advising</a><a href="#story">Story</a><a href="#blog">Blog</a><a href="#about-me">About</a></nav>
-  <div class="lang" id="lang" role="group" aria-label="Language"><button type="button" aria-pressed="true" lang="en">EN</button><button type="button" aria-pressed="false" lang="de">DE</button><button type="button" aria-pressed="false" lang="pt">PT</button></div>
+  <div class="langwrap"><button type="button" class="langbtn" id="langBtn" aria-expanded="false" aria-haspopup="true" aria-label="Language"><span id="langNow">EN</span><svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="lang" id="lang" role="menu" aria-label="Language" hidden><button type="button" role="menuitem" aria-pressed="true" lang="en"><b>EN</b>English</button><button type="button" role="menuitem" aria-pressed="false" lang="de"><b>DE</b>Deutsch</button><button type="button" role="menuitem" aria-pressed="false" lang="pt"><b>PT</b>Português</button></div></div>
   <button class="lamp" id="snd" type="button" aria-label="Music">♪</button>
   <button class="lamp" id="lamp" type="button" aria-pressed="false" aria-label="Turn the lights off">☾</button>
   <a class="btn" href="#packages" data-call>Book a call</a>
@@ -1198,7 +1212,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
       <h2 id="l-mine">So I built one</h2>
       <p>I made this site mostly by talking to an AI, which is either the problem or the proof, depending on your mood. And the first thing I did with that freedom was waste it beautifully.</p>
       <p>There is an ant on one page. There is a little figure that falls over and gets back up. There is a rainbow. The photo on the contact page does not like being poked. None of it serves a commercial purpose and all of it took four minutes, because four minutes is what it costs now.</p>
-      <p>The 404 is my favourite. A cat knocks the numbers off a shelf and you can put them back, and she knocks them off again, which is accurate. <a href="https://claude.ai/artifact/N2CDrDWFksdymBounN1dGg" target="_blank" rel="noopener">You can go and look at it</a>, though it works better if you find it by accident.</p>
+      <p>The 404 is my favourite. A cat knocks the numbers off a shelf and you can put them back, and she knocks them off again, which is accurate. <a href="https://laudowicz.com/404" target="_blank" rel="noopener">You can go and look at it</a>, though it works better if you find it by accident.</p>
       <p>Underneath the joke it does something real, but that is a different story, and <a href="#post-cats">it has cats in it</a>.</p>
 
       <h2 id="l-point">The point</h2>
@@ -1383,7 +1397,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 
       <h2 id="c-404">Why there is a cat on my 404</h2>
       <p>Because every cat I have loved came from somewhere a little lost.</p>
-      <p>So on <a href="https://claude.ai/artifact/N2CDrDWFksdymBounN1dGg" target="_blank" rel="noopener">the page you reach when a link is broken</a>, a cat has knocked the numbers off a shelf. You can put them back. She knocks them off again.</p>
+      <p>So on <a href="https://laudowicz.com/404" target="_blank" rel="noopener">the page you reach when a link is broken</a>, a cat has knocked the numbers off a shelf. You can put them back. She knocks them off again.</p>
       <p>Underneath the joke, the page does something I like more. It shows three real cats currently waiting for homes, one each from the three cities that are dear to me &mdash; Lisbon, Berlin and Honolulu &mdash; pulled from the shelters' own lists, picked fresh every time the page loads. Tap one and you land on that cat's page at the shelter. No middleman, no fees, nothing in it for me.</p>
       <blockquote>If a broken link can help one more cat find a home, that is a good use for a broken link.</blockquote>
 
@@ -1943,7 +1957,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
     <nav aria-label="Follow"><h4>Follow</h4><a href="https://laudowicz.substack.com" target="_blank" rel="noopener">Substack</a><a href="https://www.linkedin.com/in/laudowicz/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.instagram.com/laudowicz" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@laudowicz" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@laudowicz" target="_blank" rel="noopener">TikTok</a></nav>
     <nav aria-label="Listen"><h4>Listen</h4><a href="https://soundcloud.com/laudowicz" target="_blank" rel="noopener">SoundCloud</a><a href="https://open.spotify.com/user/1213189791/playlists" target="_blank" rel="noopener">Spotify</a><a href="#advising" class="soonl">Podcast<span class="sp"><i aria-hidden="true"></i>in the works</span></a></nav>
   </div>
-  <div class="fbot"><span>&copy; 2026 <button class="rbw" id="rbw" type="button" aria-label="A hidden rainbow"><svg viewBox="0 0 24 14" aria-hidden="true"><g fill="none" stroke-width="2"><path d="M2 13a10 10 0 0 1 20 0" stroke="#ff5c5c"/><path d="M5 13a7 7 0 0 1 14 0" stroke="#ffe14d"/><path d="M8 13a4 4 0 0 1 8 0" stroke="#7cc8ff"/></g></svg></button> Laurens Laudowicz</span><span class="fnote">You scrolled all the way down. Yay! I <button class="hrt" id="hrt" type="button" aria-label="Send hearts">&hearts;</button> you already.</span><span><a href="#imprint">Imprint</a> &middot; <a href="#privacy">Privacy</a> &middot; <a href="#" data-cookies>Cookie settings</a> &middot; <a href="https://claude.ai/artifact/N2CDrDWFksdymBounN1dGg" target="_blank" rel="noopener" title="On the live site: laudowicz.com/404">Lost? 🐈</a></span></div>
+  <div class="fbot"><span>&copy; 2026 <button class="rbw" id="rbw" type="button" aria-label="A hidden rainbow"><svg viewBox="0 0 24 14" aria-hidden="true"><g fill="none" stroke-width="2"><path d="M2 13a10 10 0 0 1 20 0" stroke="#ff5c5c"/><path d="M5 13a7 7 0 0 1 14 0" stroke="#ffe14d"/><path d="M8 13a4 4 0 0 1 8 0" stroke="#7cc8ff"/></g></svg></button> Laurens Laudowicz</span><span class="fnote">You scrolled all the way down. Yay! I <button class="hrt" id="hrt" type="button" aria-label="Send hearts">&hearts;</button> you already.</span><span><a href="#imprint">Imprint</a> &middot; <a href="#privacy">Privacy</a> &middot; <a href="#" data-cookies>Cookie settings</a> &middot; <a href="https://laudowicz.com/404" target="_blank" rel="noopener" title="On the live site: laudowicz.com/404">Lost? 🐈</a></span></div>
 </div></footer>
 
 <button class="music" id="music" type="button">Want some music while you look around?</button>
@@ -2152,6 +2166,15 @@ fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":
    e.textContent="That did not send. Please email laurens@laudowicz.com directly and I will pick it up from there.";});
 });
 document.getElementById("lang").addEventListener("click",function(e){var b=e.target.closest("button[data-soon]");if(b)bub(b.dataset.soon,b)});
+(function(){var t=document.getElementById("langBtn"),m=document.getElementById("lang");if(!t||!m)return;
+ function open(v){t.setAttribute("aria-expanded",v?"true":"false");m.hidden=!v;
+  if(v){var f=m.querySelector('button[aria-pressed="true"]')||m.querySelector("button");if(f)f.focus()}}
+ t.addEventListener("click",function(e){e.stopPropagation();open(m.hidden)});
+ m.addEventListener("click",function(){setTimeout(function(){open(false);t.focus()},0)});
+ document.addEventListener("click",function(e){if(!m.hidden&&!m.contains(e.target)&&e.target!==t)open(false)});
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!m.hidden){open(false);t.focus()}});
+})();
+
 (function(){var B=document.getElementById("ball");if(!B)return;var on=0;
 B.addEventListener("click",function(){if(on)return;on=1;B.classList.add("spin");
 var rm=matchMedia("(prefers-reduced-motion: reduce)").matches,D=document.createElement("div");D.className="disco";document.body.appendChild(D);
@@ -2276,6 +2299,7 @@ document.addEventListener("click",function(e){var a=e.target.closest("[data-call
    try{localStorage.setItem("lz-lang",lang)}catch(e){}
    var bs=document.querySelectorAll("#lang button");
    for(var j=0;j<bs.length;j++) bs[j].setAttribute("aria-pressed", bs[j].lang===lang?"true":"false");
+   var tg=document.getElementById("langNow"); if(tg) tg.textContent=lang.toUpperCase();
  }
  function apply(lang){
    if(BUSY) return;
