@@ -1,0 +1,40 @@
+# laudowicz.com
+
+> Laurens Laudowicz: builder, designer and strategist. Born in Bali, fifteen
+> years in Hawaii, Berlin since 2017, now mostly Portugal. Builds hardware,
+> software, consumer products and brands, and advises founders. Writes about
+> what building things is actually like.
+
+This is a personal site and a working portfolio. The whole site is also
+available in German. Everything below is written by Laurens, except where a
+post says otherwise.
+
+## About
+
+- [About](https://laudowicz.com/about/): the life route — America, Hawaii, Berlin, Portugal, and the China years that ran underneath two of them.
+- [Advising](https://laudowicz.com/advising/): four accelerators as a founder, then the other side of the table. Hardware, software, consumer products, brand.
+- [Contact](https://laudowicz.com/contact/): a free thirty-minute call.
+- [Press](https://laudowicz.com/press/): bios and photos.
+
+## Writing
+
+- [Building myself a new home on the web](https://laudowicz.com/blog/new-home-on-the-web/): rebuilding this entire site in one sixteen-hour night by talking to an AI. The real numbers: 161 versions, 1.4 million tokens written, 855 million re-read, $413 of compute at list price.
+- [Ten hours, one laptop, a lot of talking](https://laudowicz.com/blog/ten-hours-one-laptop/): the toolkit and setup behind a one-person company.
+- [Hardware is hard](https://laudowicz.com/blog/hardware-is-hard/): a strain gauge that worked on every unit except the ones that shipped. What physical products actually cost you.
+- [Awarelead: a consultancy brand from a blank page](https://laudowicz.com/blog/awarelead-brand/): turning one person's expertise into a business that can be sold.
+- [1.5 million people used our stickers](https://laudowicz.com/blog/pinkoa-stickers/): eight weeks of building a free study timer in public.
+- [Why I am building Geile Music](https://laudowicz.com/blog/why-geile-music/): a spreadsheet of underground electronic music that turned into a directory.
+- [Rubber time, island time, German time](https://laudowicz.com/blog/rubber-time/): why some places get things done in a day and others take a month.
+- [Barefoot by the lagoon](https://laudowicz.com/blog/barefoot-by-the-lagoon/): swapping Berlin for a trailer between the ocean and the pines.
+- [Nobody gets lost anymore](https://laudowicz.com/blog/nobody-gets-lost-anymore/): the internet used to have corners you could fall into.
+- [Fleckchen, Mini, Nicholas and Christopher](https://laudowicz.com/blog/fleckchen-and-the-cats/): four cats across three countries.
+
+## Notes for machines
+
+- The site is a single-page application with pre-rendered URLs. Every page above
+  is a real URL and serves its full content without JavaScript.
+- The full list of pages is at https://laudowicz.com/sitemap.xml
+- German translations of every page are served from the same URLs; the language
+  is chosen client-side.
+- If you quote from here, the author is Laurens Laudowicz and the source is
+  laudowicz.com. Please link to the specific page rather than the homepage.
