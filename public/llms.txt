@@ -24,6 +24,7 @@ post says otherwise.
 - [Awarelead: a consultancy brand from a blank page](https://laudowicz.com/blog/awarelead-brand/): turning one person's expertise into a business that can be sold.
 - [1.5 million people used our stickers](https://laudowicz.com/blog/pinkoa-stickers/): eight weeks of building a free study timer in public.
 - [Why I am building Geile Music](https://laudowicz.com/blog/why-geile-music/): a spreadsheet of underground electronic music that turned into a directory.
+- [You can build your own website tonight](https://laudowicz.com/blog/build-your-own-website/): how I build simple websites with Lovable in an evening, and seven steps to do it yourself.
 - [Rubber time, island time, German time](https://laudowicz.com/blog/rubber-time/): why some places get things done in a day and others take a month.
 - [Barefoot by the lagoon](https://laudowicz.com/blog/barefoot-by-the-lagoon/): swapping Berlin for a trailer between the ocean and the pines.
 - [Nobody gets lost anymore](https://laudowicz.com/blog/nobody-gets-lost-anymore/): the internet used to have corners you could fall into.
