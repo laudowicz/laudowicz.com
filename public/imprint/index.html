@@ -1976,7 +1976,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 <div class="pl gone" id="player" role="region" aria-label="Music player">
   <div class="pl-bar">
     <button class="pl-btn" id="plPlay" type="button" aria-label="Play">▶</button>
-    <div class="pl-now"><b id="plMood">Daytime chill</b><span id="plSrc">Spotify · Portufornia 2026</span></div>
+    <div class="pl-now"><b id="plMood">Daytime chill</b><span id="plSrc">SoundCloud · Hammock Hangout</span></div>
     <button class="pl-btn" id="plExp" type="button" aria-expanded="true" aria-label="Make the player smaller">⌄</button>
     <button class="pl-btn" id="plMin" type="button" aria-label="Hide the player">–</button>
   </div>
@@ -1984,7 +1984,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
     <div class="pl-tabs" id="plMoods"><button type="button" data-m="day" aria-selected="true">☀ Daytime chill</button><button type="button" data-m="night" aria-selected="false">☾ After hours</button></div>
     <div class="pl-frame" id="plFrame"></div>
     <p class="pl-sub" id="plSub"></p>
-    <div class="pl-tabs" id="plSrcs"><a data-s="spotify" aria-selected="true" target="_blank" rel="noopener">Spotify</a><a data-s="soundcloud" aria-selected="false" target="_blank" rel="noopener">SoundCloud</a></div>
+    <div class="pl-tabs" id="plSrcs"><a data-s="soundcloud" aria-selected="true" target="_blank" rel="noopener">SoundCloud</a></div>
     <p class="pl-hint">Not your style? Tap the selected one again to open it there.</p>
   </div>
 </div>
@@ -2048,7 +2048,7 @@ var SCD={t:"Hammock Hangout",u:"https://soundcloud.com/sundaesue/hammockhangout-
 var PL={day:{spotify:{t:"Portufornia 2026 \u{1F1F5}\u{1F1F9}",u:"https://open.spotify.com/playlist/6vz6KZLhY8uZUu6OncQFcW",e:"6vz6KZLhY8uZUu6OncQFcW",s:"Lagoon hours. Portugal meets California."},soundcloud:SCD},
  night:{spotify:{t:"Good Vibes Only",u:"https://open.spotify.com/playlist/67R9thuMvGKOJOcLgjDH1t",e:"67R9thuMvGKOJOcLgjDH1t",s:"For when the lights go off."},soundcloud:SCN}},
  EMB=/(^|\.)laudowicz\.com$|(^|\.)pages\.dev$/.test(location.hostname),
- mood="day",src="spotify",open=false;
+ mood="day",src="soundcloud",open=false;
 var scLoad=0,scQ=[];
 function scReady(fn){if(window.SC&&window.SC.Widget)return fn();scQ.push(fn);if(scLoad)return;scLoad=1;
  var s=document.createElement("script");s.src="https://w.soundcloud.com/player/api.js";
@@ -2074,7 +2074,7 @@ $("plMin").addEventListener("click",function(){var P=$("player");if(!P.classList
 $("plMoods").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;mood=b.dataset.m;drawPl()});
 $("plSrcs").addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;if(a.dataset.s!==src){e.preventDefault();src=a.dataset.s;drawPl()}});
 $("plPlay").addEventListener("click",function(){var d=PL[mood][src],e=d.e||d.sc,r=this.getBoundingClientRect();if(e&&EMB){showPl(true);toast("Press play in the player below.");return}toast(e?"Plays right here once this is live on laudowicz.com.":"Nothing to play there yet.",r.left+r.width/2,r.top-110)});
-$("lamp").addEventListener("click",function(){mood=R.classList.contains("night")?"night":"day";drawPl()});
+
 drawPl();
 // a colour for everybody
 var cols=["#ff8fc0","#b99cff","#7cc8ff","#ffe14d"];
@@ -2149,7 +2149,7 @@ var c=get();if(c==="yes")load();else if(c===null)setTimeout(show,1200)})();
 (function(){var T=document.getElementById("bub"),tt,last=-1;
 var CALL=["👍 Good choice.","Yes! That's the way.","🙌 See you on the call.","Best button on the site.","Great call. Literally.","☕ Coffee's on me (virtually)."];
 window.bub=function(m,el){T.textContent=m;T.classList.remove("on","below");var r=el?el.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0,bottom:innerHeight/2};var w=T.offsetWidth,h=T.offsetHeight,x=Math.max(12,Math.min(innerWidth-w-48,r.left+r.width/2-w*.78)),y=r.top-h-26;if(y<80){y=r.bottom+26;T.classList.add("below")}T.style.left=x+"px";T.style.top=y+"px";void T.offsetWidth;T.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){T.classList.remove("on")},2300)};
-document.addEventListener("click",function(e){var a=e.target.closest("[data-call],a[href='#contact']");if(!a||a.closest("footer nav"))return;var i;do{i=Math.floor(Math.random()*CALL.length)}while(i===last);last=i;bub(CALL[i],a)},true);
+document.addEventListener("click",function(e){var a=e.target.closest("[data-call],a[href='#contact']");if(!a||a.closest("footer nav")||/^https?:/.test(a.getAttribute("href")||""))return;var i;do{i=Math.floor(Math.random()*CALL.length)}while(i===last);last=i;bub(CALL[i],a)},true);
 var at=document.getElementById("askTime");if(at)at.addEventListener("click",function(e){e.preventDefault();var m=document.getElementById("mail");m.scrollIntoView({block:"center"});bub("Write me, any time zone works.",m)});
 var pf=document.getElementById("propForm");if(pf)pf.addEventListener("submit",function(e){e.preventDefault();var F=pf.elements,ok=F["package"].value&&F["name"].value.trim()&&F["company"].value.trim()&&/.+@.+\..+/.test(F["email"].value);document.getElementById("propErr").hidden=!!ok;if(!ok)return;
 var addons=[].filter.call(pf.querySelectorAll('input[name="addon"]:checked'),function(x){return 1}).map(function(x){return x.value||x.nextElementSibling&&x.nextElementSibling.textContent.trim()||"add-on"});
@@ -2235,7 +2235,7 @@ $("pk").addEventListener("click",function(e){var b=e.target.closest("[data-p]");
  $("dlg").style.borderTop="";$("dlgB").innerHTML='<button class="x" type="button" aria-label="Close">\u2715</button><p class="eb">'+cur+' \u00b7 '+p.t+'</p><h2 id="dlgH">'+p.n+'</h2><p style="font-size:1.15rem">'+p.get+'</p><div><h4>Who it is for</h4><p>'+p.who+'</p></div><div><h4>What is included</h4><ul>'+li(p.inc)+'</ul></div><div><h4>How it works</h4><ol>'+li(p.how)+'</ol></div><div class="pr" style="font:800 2rem var(--d)">'+p.pr+'</div><div>'+cta(p)+'</div>';
  $("dlg").showModal()});
 $("dlg").addEventListener("click",function(e){if(e.target===this||e.target.closest(".x"))this.close()});
-document.addEventListener("click",function(e){var a=e.target.closest("[data-call]");if(!a)return;e.preventDefault();if($("dlg").open)$("dlg").close();location.hash="#contact"});
+document.addEventListener("click",function(e){var a=e.target.closest("[data-call]");if(!a||/^https?:/.test(a.getAttribute("href")||""))return;e.preventDefault();if($("dlg").open)$("dlg").close();location.hash="#contact"});
 })();
 </script>
 
