@@ -367,7 +367,7 @@
 "Sparring session · €250": "Sparring-Session · 250 €",
 "Launch sprint · €9,500": "Launch-Sprint · 9.500 €",
 "Sales teardown · €1,900": "Sales-Teardown · 1.900 €",
-"Sales build · €12,500 for 4 weeks · €19,000 for 8 weeks": "Sales-Aufbau · 12.500 € für 4 Wochen · 19.000 € für 8 Wochen",
+"Sales build · €12,000 a month, 1 to 3 months": "Sales build · 12.000 € pro Monat, 1 bis 3 Monate",
 "Day on site · €1,900": "Tag vor Ort · 1.900 €",
 "Interim · €9,500 a month": "Interim · 9.500 € pro Monat",
 "Sounding board · €950 a month": "Sparringspartner · 950 € pro Monat",
@@ -1518,7 +1518,6 @@
 "€250": "250 €",
 "€9,500": "9.500 €",
 "€1,900": "1.900 €",
-"€12,500 for 4 weeks · €19,000 for 8 weeks": "12.500 € für 4 Wochen · 19.000 € für 8 Wochen",
 "€9,500 a month": "9.500 € pro Monat",
 "€950 a month": "950 € pro Monat",
 "€1,500 a month": "1.500 € pro Monat",
@@ -1712,5 +1711,6 @@
 "You guessed it: a call": "Richtig geraten: ein Anruf",
 "Yep, you gotta call me": "Jep, du musst mich anrufen",
 "I might write more about this journey one day.": "Vielleicht schreibe ich irgendwann mehr über diese Reise.",
-"Same deal: a call": "Gleicher Deal: ein Anruf"
+"Same deal: a call": "Gleicher Deal: ein Anruf",
+"€12,000 a month": "12.000 € pro Monat"
 }
