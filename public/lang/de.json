@@ -447,7 +447,7 @@
 "Cookie settings": "Cookie-Einstellungen",
 "at the bottom of any page to open the box again. Your choice is saved in your browser for 12 months, so the box doesn't keep asking.": ", um das Fenster wieder zu öffnen. Deine Entscheidung wird 12 Monate in deinem Browser gespeichert, damit das Fenster nicht ständig nachfragt.",
 "Your colour and lights-off choice": "Deine Farb- und Licht-aus-Wahl",
-"If you pick a colour or turn the lights off, that choice stays only in this page while you look around. Nothing is sent to a server.": "Wenn du eine Farbe wählst oder das Licht ausmachst, bleibt diese Entscheidung nur in dieser Seite, solange du dich umschaust. Nichts wird an einen Server gesendet.",
+"If you pick a colour or turn the lights off, that choice stays only in this page while you look around. Nothing is sent to a server. If you close the \"Looking for something?\" box, your browser remembers that for 30 days so it stays away.": "Wenn du eine Farbe wählst oder das Licht ausmachst, bleibt diese Entscheidung nur in dieser Seite, solange du dich umschaust. Nichts wird an einen Server gesendet. Wenn du das Feld „Suchst du etwas?“ schließt, merkt sich dein Browser das für 30 Tage, damit es nicht wiederkommt.",
 "Fonts": "Schriften",
 "The fonts are hosted on this site. Your browser does not ask Google for them, so no request leaves for a Google server when you open a page.": "Die Schriften liegen auf dieser Seite. Dein Browser fragt sie nicht bei Google an, es geht also beim Öffnen einer Seite keine Anfrage an einen Google-Server.",
 "Email and calls": "E-Mail und Gespräche",
