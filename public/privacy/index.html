@@ -162,6 +162,9 @@ dialog::backdrop{background:rgba(10,8,14,.55)}
 .cashfly{position:absolute;left:0;width:100%;overflow:hidden;pointer-events:none;z-index:15}
 .cashe{position:absolute;left:0;top:0;line-height:1;opacity:0;will-change:transform,opacity;user-select:none;-webkit-user-select:none;pointer-events:none;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 .cashpeek{z-index:0}
+.cashw{display:inline-block;transform-origin:50% 60%}
+.dayv>.sticky{margin-right:calc((100% - 260px)*.35)}
+.pkc .btn.ghost{background:color-mix(in srgb,var(--mark) 14%,var(--bg))}
 #advising .card:first-child{position:relative}
 .orbit{display:none}
 @supports (offset-path:inset(0 round 22px)){.orbit{display:block;position:absolute;left:0;top:0;width:70px;height:3px;margin-top:-1px;border-radius:3px;background:linear-gradient(90deg,transparent,var(--mark));offset-path:inset(0 round 22px);offset-rotate:auto;animation:orbit 40s linear infinite;pointer-events:none}}
@@ -2117,66 +2120,90 @@ document.addEventListener("click",function(e){var b=e.target.closest("[data-co]"
  $("dlgB").innerHTML='<button class="x" type="button" aria-label="Close">\u2715</button><p class="eb">'+c[0]+'</p><h2 id="dlgH">'+b.dataset.co+'</h2><p style="font-size:1.15rem">'+c[1]+'</p><div class="shot">'+(c[2]&&c[2].indexOf("img:")===0?'<img src="'+c[2].slice(4).split("|")[0]+'" alt="'+c[2].split("|")[1]+'" style="border-radius:10px;display:block">':(c[2]||""))+'</div>'+(c[0]==="Speaking"?'<div><a class="btn" href="/contact/" data-r="#contact" data-call>Book me to speak</a></div>':'<p style="color:var(--mut)">The full chapter is coming.</p>');$("dlg").showModal()});
 // the dot drops onto the note when you reach it
 (function(){
-/* The money on the "Can't afford this?" note. 💸 flies in from the left edge, taps the note three times, flies off. Once per visit.
-   Easter egg: tap the note four times quickly and it peeks out from behind the note, left and right, then flies off again. */
-var note=document.querySelector(".sticky");if(!note||!window.Element||!Element.prototype.animate)return;
+/* The money on the "Can't afford this?" note. Once per visit, and only after someone has spent a few seconds looking at the packages
+   (and has not already clicked a call button there): 💸 flutters in slowly like a butterfly, lands on the note (doink), rests, flutters off.
+   Easter egg: tap the note four times quickly and it peeks out from behind the note, left and right, then flutters off again. */
+var note=document.querySelector(".dayv>.sticky")||document.querySelector(".sticky");if(!note||!window.Element||!Element.prototype.animate)return;
 if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 var KEY="lz-cash-seen",busy=false;
 function seen(){try{return sessionStorage.getItem(KEY)==="1"}catch(e){return false}}
 function mark(){try{sessionStorage.setItem(KEY,"1")}catch(e){}}
-function tf(x,y,r,sx,sy){if(sx==null)sx=1;if(sy==null)sy=sx;return "translate("+x+"px,"+y+"px) rotate("+(r||0)+"deg) scale("+sx+","+sy+")"}
-function emo(ch,px,host,cls){var s=document.createElement("span");s.className="cashe"+(cls?" "+cls:"");s.textContent=ch;s.setAttribute("aria-hidden","true");s.style.fontSize=px+"px";host.appendChild(s);return s}
-/* a clipped layer in page coordinates around the note, so nothing ever widens the page */
+function tf(x,y,r,sx,sy){if(sx==null)sx=1;if(sy==null)sy=sx;return "translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px) rotate("+(r||0).toFixed(1)+"deg) scale("+sx+","+sy+")"}
+/* outer span moves, inner span flaps its wings */
+function emo(px,host,cls){var s=document.createElement("span");s.className="cashe"+(cls?" "+cls:"");s.setAttribute("aria-hidden","true");s.style.fontSize=px+"px";
+ var i=document.createElement("span");i.className="cashw";i.textContent="💸";s.appendChild(i);host.appendChild(s);
+ s.flap=i.animate([{transform:"scale(1,1) rotate(-4deg)"},{transform:"scale(.72,1.04) rotate(3deg)"},{transform:"scale(1,1) rotate(-4deg)"}],{duration:360,iterations:Infinity,easing:"ease-in-out"});
+ return s}
+function spark(px,host){var s=document.createElement("span");s.className="cashe";s.setAttribute("aria-hidden","true");s.style.fontSize=px+"px";s.textContent="✨";host.appendChild(s);return s}
 function layer(above,below){var r=note.getBoundingClientRect(),d=document.createElement("div");d.className="cashfly";d.setAttribute("aria-hidden","true");
- var top=r.top+window.pageYOffset-above;d.style.top=top+"px";d.style.height=(above+r.height+below)+"px";document.body.appendChild(d);
+ d.style.top=(r.top+window.pageYOffset-above)+"px";d.style.height=(above+r.height+below)+"px";document.body.appendChild(d);
  var L=d.getBoundingClientRect();return{el:d,nx:r.left-L.left,ny:r.top-L.top,nw:r.width,nh:r.height,W:L.width}}
 function wob(list,T){return note.animate(list.map(function(k){return{offset:k[0],transform:"translateY("+k[1]+"px) rotate("+k[2]+"deg)"}}),{duration:T})}
 function done(anims,cb){Promise.all(anims.map(function(a){return a.finished})).then(cb,cb)}
+/* a butterfly path: a soft curve with a slow up-and-down flutter and a little sway on top */
+function path(o0,o1,p0,c,p1,n,amp,waves,phase){var k=[];for(var i=0;i<=n;i++){var t=i/n,u=1-t,
+ x=u*u*p0[0]+2*u*t*c[0]+t*t*p1[0],y=u*u*p0[1]+2*u*t*c[1]+t*t*p1[1],env=Math.sin(Math.PI*t),
+ fy=Math.sin(t*Math.PI*2*waves+phase)*amp*env,fx=Math.cos(t*Math.PI*2*waves*.5+phase)*amp*.6*env,r=Math.sin(t*Math.PI*2*waves+phase+1)*12*env;
+ k.push({offset:o0+(o1-o0)*t,transform:tf(x+fx,y+fy,r)})}return k}
 
 function fly(){if(busy)return;busy=true;mark();
- var g=layer(200,60),s=Math.round(g.nw*.24),m=emo("💸",s,g.el),top=g.ny-s*.5,cx=g.nx+g.nw*.5-s/2,T=2300,A=[];
- A.push(m.animate([{offset:0,opacity:0,transform:tf(-s-10,g.ny+g.nh*.18,-20,.8)},{offset:.06,opacity:1},
-  {offset:.16,transform:tf(g.nx-s*.5,g.ny-s*.05,10)},{offset:.24,transform:tf(g.nx+g.nw*.08,top-16,-8)},
-  {offset:.30,transform:tf(g.nx+g.nw*.18,top,-4,1.08,.9)},{offset:.36,transform:tf(g.nx+g.nw*.26,top-34,8)},
-  {offset:.43,transform:tf(cx,top,2,1.08,.9)},{offset:.49,transform:tf(cx+g.nw*.1,top-34,-8)},
-  {offset:.56,transform:tf(g.nx+g.nw*.62,top,4,1.1,.88)},{offset:.64,transform:tf(g.nx+g.nw*.7,top-60,-12)},
-  {offset:1,opacity:1,transform:tf(g.W+s,-s*2,25,.7)}],{duration:T,fill:"forwards"}));
- A.push(wob([[0,0,-2],[.29,0,-2],[.31,2,-3],[.36,0,-2],[.42,0,-2],[.44,3,-1],[.49,0,-2],[.55,0,-2],[.57,4,-.5],[.66,0,-3],[.76,0,-1.6],[1,0,-2]],T));
- [[.31,g.nx+g.nw*.18],[.44,cx],[.57,g.nx+g.nw*.62]].forEach(function(p){var sp=emo("✨",Math.round(s*.4),g.el),x=p[1]+s*.3,y=g.ny-s*.3,o=p[0];
-  A.push(sp.animate([{offset:0,opacity:0,transform:tf(x,y,0,.3)},{offset:o,opacity:0,transform:tf(x,y,0,.3)},{offset:o+.02,opacity:1,transform:tf(x,y-6,0,1)},{offset:o+.1,opacity:0,transform:tf(x,y-22,20,1.2)},{offset:1,opacity:0}],{duration:T,fill:"forwards"}))});
- done(A,function(){g.el.remove();busy=false})}
+ var g=layer(300,80),s=Math.round(g.nw*.22),m=emo(s,g.el),T=8000,A=[];
+ var lx=g.nx+g.nw*.55-s/2,ly=g.ny-s*.62;
+ var k=[{offset:0,opacity:0,transform:tf(-s*1.3,g.ny+g.nh*.25,-10)}];
+ k=k.concat(path(.02,.52,[-s*1.1,g.ny+g.nh*.22],[g.nx+g.nw*.1,g.ny-s*2.6],[lx,ly-s*.5],26,14,4,0).slice(1));
+ k[1].opacity=1;
+ k.push({offset:.57,transform:tf(lx,ly,0)});                    // touchdown
+ k.push({offset:.59,transform:tf(lx,ly+s*.08,0,1.16,.8)});        // doink
+ k.push({offset:.62,transform:tf(lx,ly-s*.14,-4,.94,1.08)});
+ k.push({offset:.65,transform:tf(lx,ly,0,1)});
+ k.push({offset:.76,transform:tf(lx+2,ly-2,3,1)});                // rests a moment
+ k=k.concat(path(.76,1,[lx+2,ly-2],[g.nx+g.nw*.95,g.ny-s*2.2],[g.W+s*1.4,g.ny-s*3.2],16,12,2.5,1.2).slice(1));
+ k[k.length-1].opacity=1;
+ A.push(m.animate(k,{duration:T,fill:"forwards"}));
+ // wings slow down while it sits, then pick up again
+ setTimeout(function(){m.flap.updatePlaybackRate(.3)},T*.58);setTimeout(function(){m.flap.updatePlaybackRate(1.2)},T*.75);
+ A.push(wob([[0,0,-2],[.57,0,-2],[.59,4,-.8],[.63,-1,-2.8],[.67,1,-1.6],[.72,0,-2],[1,0,-2]],T));
+ var sp=spark(Math.round(s*.45),g.el),sx=lx+s*.75,sy=ly-s*.05;
+ A.push(sp.animate([{offset:0,opacity:0,transform:tf(sx,sy,0,.3)},{offset:.585,opacity:0,transform:tf(sx,sy,0,.3)},{offset:.6,opacity:1,transform:tf(sx+4,sy-6,0,1)},{offset:.68,opacity:0,transform:tf(sx+10,sy-24,20,1.2)},{offset:1,opacity:0}],{duration:T,fill:"forwards"}));
+ done(A,function(){m.flap.cancel();g.el.remove();busy=false})}
 
 function peek(){if(busy)return;busy=true;
  var wrap=note.parentNode;if(getComputedStyle(wrap).position==="static")wrap.style.position="relative";
- var nw=note.offsetWidth,nh=note.offsetHeight,s=Math.round(nw*.24),bw=s*1.15,bh=s*1.15,x0=note.offsetLeft,y0=note.offsetTop,T=3000;
- var p=emo("💸",s,wrap,"cashpeek");wrap.insertBefore(p,note);
+ var nw=note.offsetWidth,nh=note.offsetHeight,s=Math.round(nw*.22),bw=s*1.15,bh=s*1.15,x0=note.offsetLeft,y0=note.offsetTop,T=4600;
+ var p=emo(s,wrap,"cashpeek");wrap.insertBefore(p,note);p.flap.updatePlaybackRate(.5);
  var mid=x0+nw/2-bw/2,hid=y0+nh*.35,left=x0-bw*.5,right=x0+nw-bw*.6,side=y0+nh*.4;
  var a=p.animate([
   {offset:0,opacity:1,transform:tf(mid,hid,0)},
-  {offset:.10,transform:tf(mid,y0-bh*.55,0),easing:"ease-out"},          // head pops up over the top
-  {offset:.15,transform:tf(mid-4,y0-bh*.55,-10)},{offset:.20,transform:tf(mid+4,y0-bh*.55,10)},{offset:.24,transform:tf(mid,y0-bh*.55,0)}, // looks around
-  {offset:.30,transform:tf(mid,hid,0),easing:"ease-in"},                  // ducks
+  {offset:.10,transform:tf(mid,y0-bh*.55,0),easing:"ease-out"},
+  {offset:.15,transform:tf(mid-4,y0-bh*.55,-10)},{offset:.20,transform:tf(mid+4,y0-bh*.55,10)},{offset:.24,transform:tf(mid,y0-bh*.55,0)},
+  {offset:.30,transform:tf(mid,hid,0),easing:"ease-in"},
   {offset:.34,transform:tf(x0+6,side,0)},
-  {offset:.42,transform:tf(left,side,-18),easing:"ease-out"},             // peeks out on the left
+  {offset:.42,transform:tf(left,side,-18),easing:"ease-out"},
   {offset:.47,transform:tf(left-3,side-4,-24)},{offset:.52,transform:tf(left,side,-18)},
   {offset:.58,transform:tf(x0+6,side,0),easing:"ease-in"},
   {offset:.62,transform:tf(x0+nw-bw-6,side,0)},
-  {offset:.70,transform:tf(right,side,18),easing:"ease-out"},             // peeks out on the right
+  {offset:.70,transform:tf(right,side,18),easing:"ease-out"},
   {offset:.75,transform:tf(right+3,side-4,24)},{offset:.80,transform:tf(right,side,18)},
   {offset:.86,transform:tf(x0+nw-bw-6,side,0),easing:"ease-in"},
-  {offset:.94,transform:tf(x0+nw*.62-bw/2,y0-bh*.7,-6,1.1),easing:"cubic-bezier(.2,.9,.3,1.4)"}, // springs up over the top
-  {offset:1,opacity:1,transform:tf(x0+nw*.62-bw/2,y0-bh*.75,-8,1.12)}
+  {offset:.94,transform:tf(x0+nw*.62-bw/2,y0-bh*.7,-6,1.1),easing:"cubic-bezier(.2,.9,.3,1.4)"},
+  {offset:1,opacity:1,transform:tf(x0+nw*.62-bw/2,y0-bh*.75,-8,1.1)}
  ],{duration:T,fill:"forwards"});
  var w=wob([[0,0,-2],[.08,0,-2],[.10,-2,-2.6],[.14,0,-2],[.40,0,-2],[.42,0,-2.8],[.46,0,-2],[.68,0,-2],[.70,0,-1.2],[.74,0,-2],[.92,0,-2],[.94,-3,-1],[1,0,-2]],T);
  done([a,w],function(){
-  // hand off to the clipped layer for the getaway, so it can leave the screen without widening the page
-  var g=layer(240,40),r=p.getBoundingClientRect(),L=g.el.getBoundingClientRect(),m=emo("💸",s,g.el),sx=r.left-L.left,sy=r.top-L.top;p.remove();
-  var f=m.animate([{offset:0,opacity:1,transform:tf(sx,sy,-8,1.12)},{offset:.25,transform:tf(sx+20,sy-30,4,1.05)},{offset:1,opacity:1,transform:tf(g.W+s,-s*2,25,.7)}],{duration:900,fill:"forwards",easing:"ease-in"});
-  done([f],function(){g.el.remove();busy=false})})}
+  var g=layer(300,40),r=p.getBoundingClientRect(),L=g.el.getBoundingClientRect(),m=emo(s,g.el),sx=r.left-L.left,sy=r.top-L.top;p.flap.cancel();p.remove();
+  var k=path(0,1,[sx,sy],[sx+g.nw*.3,sy-s*2.4],[g.W+s*1.4,sy-s*3.4],18,12,2.5,.4);k[0].opacity=1;k[k.length-1].opacity=1;
+  var f=m.animate(k,{duration:3200,fill:"forwards"});
+  done([f],function(){m.flap.cancel();g.el.remove();busy=false})})}
 
-/* play once per visit, only when the note is in view and the page has stopped scrolling */
-if(!seen()&&"IntersectionObserver" in window){var vis=false,tm=0,io;
- function arm(){clearTimeout(tm);if(vis&&!seen())tm=setTimeout(function(){if(vis&&!seen()){io.disconnect();removeEventListener("scroll",arm);fly()}},400)}
+/* only after real interest in the packages: about five seconds with the package cards on screen, and no call button clicked there */
+if(!seen()&&"IntersectionObserver" in window){
+ var pk=document.getElementById("pk")||document.getElementById("packages"),dwell=0,since=0,ready=false,off=false,vis=false,tm=0,io,pio;
+ function now(){return Date.now()}
+ function check(){if(!ready&&since&&dwell+(now()-since)>=5000){ready=true;arm()}}
+ var tick=setInterval(function(){check();if(ready||off)clearInterval(tick)},500);
+ if(pk){pio=new IntersectionObserver(function(es){var e=es[0];if(e.isIntersecting){if(!since)since=now()}else if(since){dwell+=now()-since;since=0}},{threshold:.35});pio.observe(pk);
+  var sec=document.getElementById("packages")||pk;sec.addEventListener("click",function(e){if(e.target.closest("[data-call]")){off=true;clearTimeout(tm)}})}
+ function arm(){clearTimeout(tm);if(ready&&vis&&!off&&!seen())tm=setTimeout(function(){if(ready&&vis&&!off&&!seen()){io.disconnect();if(pio)pio.disconnect();removeEventListener("scroll",arm);fly()}},700)}
  io=new IntersectionObserver(function(es){vis=es[0].isIntersecting;arm()},{threshold:.6});io.observe(note);addEventListener("scroll",arm,{passive:true})}
 
 /* four quick taps on the note */
