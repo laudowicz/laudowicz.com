@@ -7,6 +7,12 @@ export default {
     const url = new URL(request.url);
     let moved = false;
 
+    // Short link to the private Laudowicz HQ: hq.laudowicz.com and laudowicz.com/hq
+    const HQ = "https://claude.ai/artifact/EgRdcMYcKbGR8Sgo7yBMzb";
+    if (url.hostname === "hq.laudowicz.com" || /^\/hq\/?$/.test(url.pathname)) {
+      return new Response(null, { status: 302, headers: { Location: HQ, "Cache-Control": "no-store" } });
+    }
+
     if (url.hostname === "www.laudowicz.com") {
       url.hostname = "laudowicz.com";
       moved = true;
