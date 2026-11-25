@@ -274,6 +274,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 .night .rainbow{mix-blend-mode:screen}
 @media(prefers-reduced-motion:reduce){.hrt{animation:none}}
 .ant{position:fixed;z-index:65;width:52px;height:33px;border:0;background:none;padding:0;color:var(--ink);cursor:pointer}
+:root.night .ant,:root.night .antsay,:root.night .slap.stampg{display:none!important}
 .ant svg{width:100%;height:100%;display:block;overflow:visible}
 .ant.walk .lg{animation:legs .18s steps(2) infinite}.ant.run .lg{animation-duration:.08s}
 @keyframes legs{50%{transform:translateY(-1px) skewX(14deg)}}
@@ -2468,16 +2469,20 @@ setTimeout(function(){B.classList.remove("spin");D.remove();on=0},T+800)})})();
 (function(){var S=document.getElementById("slot");if(!S)return;var W=["a website","a poster","a playlist","a logo","a little shop","an app","a flyer","a party page","a merch drop","a pitch deck"],i=0;
 function spin(){var n=0,t=setInterval(function(){i=(i+1)%W.length;S.textContent=W[i];n++;if(n>6){clearInterval(t);S.classList.remove("roll");void S.offsetWidth;S.classList.add("roll")}},70)}
 S.addEventListener("click",spin);setInterval(function(){if(document.documentElement.classList.contains("night")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){i=(i+1)%W.length;S.textContent=W[i];S.classList.remove("roll");void S.offsetWidth;S.classList.add("roll")}},2600)})();
-(function(){var R=document.documentElement,box=null,T=[];
+(function(){var R=document.documentElement,box=null,T=[],onS=null;
 var BUGS=["🐜","🐞","🕷️","🪲","🦗","🐛","🐝","🦋","🐌","🪳"],SAY=["Shh, we're vibing.","🎶","Great song!","Join us?","Not now, it's my song.","This is the bug party.","Turn it up!","Who invited you? Kidding."];
 function spot(){return 6+Math.random()*86}
 function start(){if(box||matchMedia("(prefers-reduced-motion: reduce)").matches)return;box=document.createElement("div");box.className="bugs";document.body.appendChild(box);
- BUGS.forEach(function(e,i){var b=document.createElement("button");b.type="button";b.className="bug walk";b.setAttribute("aria-label","A bug at the party");var fromLeft=i%2===0;b.style.left=(fromLeft?-6:104)+"vw";b.innerHTML="<span class=\"f\"><i>"+e+"</i></span>";b.dataset.dir=fromLeft?1:-1;box.appendChild(b);
-  T.push(setTimeout(function(){go(b,spot())},300+i*450));
-  b.addEventListener("click",function(){if(b.querySelector(".bugsay"))return;var t=document.createElement("span");t.className="bugsay";t.textContent=SAY[Math.floor(Math.random()*SAY.length)];b.appendChild(t);b.classList.add("fast");setTimeout(function(){t.remove();b.classList.remove("fast");var cur=parseFloat(b.style.left);go(b,Math.max(4,Math.min(94,cur+(Math.random()<.5?-1:1)*(6+Math.random()*10))))},1400)})});
+ function release(i){var e=BUGS[i],b=document.createElement("button");b.type="button";b.className="bug walk";b.setAttribute("aria-label","A bug at the party");var fromLeft=i%2===0;b.style.left=(fromLeft?-6:104)+"vw";b.innerHTML="<span class=\"f\"><i>"+e+"</i></span>";b.dataset.dir=fromLeft?1:-1;box.appendChild(b);
+  T.push(setTimeout(function(){go(b,spot())},60));
+  b.addEventListener("click",function(){if(b.querySelector(".bugsay"))return;var t=document.createElement("span");t.className="bugsay";t.textContent=SAY[Math.floor(Math.random()*SAY.length)];b.appendChild(t);b.classList.add("fast");setTimeout(function(){t.remove();b.classList.remove("fast");var cur=parseFloat(b.style.left);go(b,Math.max(4,Math.min(94,cur+(Math.random()<.5?-1:1)*(6+Math.random()*10))))},1400)})}
+ function prog(){var h=document.documentElement.scrollHeight-window.innerHeight;return h>40?Math.min(1,Math.max(0,(window.scrollY||window.pageYOffset)/h)):1}
+ var out=0;
+ function tick(){if(!box)return;var p=prog(),n=BUGS.length;while(out<n&&p>=0.06+0.9*(out/(n-1)))release(out++);if(out>=n&&onS){removeEventListener('scroll',onS);removeEventListener('resize',onS);onS=null}}
+ onS=tick;addEventListener('scroll',onS,{passive:true});addEventListener('resize',onS,{passive:true});tick();
  (function wander(){T.push(setTimeout(function(){if(!box)return;var bs=box.querySelectorAll(".bug.vibe");if(bs.length){var b=bs[Math.floor(Math.random()*bs.length)];go(b,spot())}wander()},4000+Math.random()*4000))})()}
 function go(b,x){var cur=parseFloat(b.style.left);b.classList.remove("vibe");b.classList.add("walk");b.firstChild.style.transform=x<cur?"scaleX(1)":"scaleX(-1)";b.style.left=x+"vw";setTimeout(function(){b.classList.remove("walk");b.classList.add("vibe")},2800)}
-function stop(){T.forEach(clearTimeout);T=[];if(box){box.remove();box=null}}
+function stop(){T.forEach(clearTimeout);T=[];if(onS){removeEventListener('scroll',onS);removeEventListener('resize',onS);onS=null}if(box){box.remove();box=null}}
 function check(){R.classList.contains("night")?start():stop()}
 new MutationObserver(check).observe(R,{attributes:true,attributeFilter:["class"]});check();
 var ball=document.getElementById("ball");if(ball)ball.addEventListener("click",function(){if(!box)return;box.querySelectorAll(".bug").forEach(function(b){b.classList.add("fast")});setTimeout(function(){if(box)box.querySelectorAll(".bug").forEach(function(b){b.classList.remove("fast")})},7000)})})();
