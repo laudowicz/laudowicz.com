@@ -2330,7 +2330,7 @@ $("hi").addEventListener("click",function(){greet(true)});
 // lights
 var copy={day:{h:'I find the real problem, then fix it with your team. <span class="mk">Fast.<svg viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M4 13 L196 8 L8 21 L194 18 L10 31 L188 29"/></svg></span>',s:"Builder, designer, strategist. Not an agency: one person who works out what you actually need and helps make it happen.",w:"What I'm working on and playing with",e:"Right now"},
  night:{h:'The office is closed. <span class="mk">Stay a while.</span>',s:"This is the side with the music, the side projects and the things I do when nobody is paying me.",w:"What I play with after hours",e:"Lights off"}};
-$("lamp").addEventListener("click",function(){var n=R.classList.toggle("night"),c=n?copy.night:copy.day;$("heroPic").src=n?"img/me/night-polaroid.jpg":"img/me/2026.jpg";$("heroPic").alt=n?"Laurens in Lisbon, as an old Polaroid":"Laurens doing a shaka, 2026";
+$("lamp").addEventListener("click",function(){var n=R.classList.toggle("night"),c=n?copy.night:copy.day;$("heroPic").src=n?"img/me/night-vintage.jpg":"img/me/2026.jpg";$("heroPic").alt=n?"Laurens in Lisbon, as an old photograph":"Laurens doing a shaka, 2026";
  this.setAttribute("aria-pressed",String(n));this.textContent=n?"☀":"☾";this.setAttribute("aria-label",n?"Turn the lights on":"Turn the lights off");
  $("h1").innerHTML=c.h;$("sub").textContent=c.s;$("workH").textContent=c.w;$("workE").textContent=c.e;greet(false)});
 // shrinking bar and music pill
