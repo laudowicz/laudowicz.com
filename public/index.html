@@ -311,6 +311,27 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 .addons{display:grid;gap:8px}.addons .lab{font:600 14px var(--b)}.pform label.chk{display:flex;gap:10px;align-items:center;font-weight:400;font-size:15px}.chk input{width:18px;height:18px;accent-color:var(--ink)}
 .pnote{font-size:14px;color:var(--mut);margin:0}.perr{color:#c0392b;font-weight:600;margin:0}.pform .btn{justify-self:start}.pdone{max-width:44rem}
 .langwrap{position:relative;flex:none}
+.mbtn{display:none;align-items:center;justify-content:center;width:38px;height:38px;flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;cursor:pointer;padding:0}
+.mbtn svg{width:17px;height:13px;display:block}
+.mbtn path{stroke:currentColor;stroke-width:2;stroke-linecap:round;transform-origin:center;transition:transform .3s cubic-bezier(.3,1,.4,1),opacity .18s ease}
+.mbtn[aria-expanded=true] .l1{transform:translateY(5px) rotate(45deg)}
+.mbtn[aria-expanded=true] .l2{opacity:0}
+.mbtn[aria-expanded=true] .l3{transform:translateY(-5px) rotate(-45deg)}
+.mscrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:54;opacity:0;transition:opacity .3s ease}
+:root.mopen .top{z-index:58}
+.mscrim.on{opacity:1}
+.msheet{position:fixed;left:0;right:0;top:0;z-index:56;background:var(--bg);border-bottom:1.5px solid var(--line);box-shadow:0 20px 54px rgba(0,0,0,.32);max-height:92vh;overflow:auto;padding:calc(74px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) 24px max(18px,env(safe-area-inset-left,0px));transform:translateY(-103%);transition:transform .4s cubic-bezier(.22,1,.28,1)}
+.msheet.on{transform:translateY(0)}
+.msheet nav{display:grid}
+.msheet nav a{font:800 24px/1.5 var(--d);color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding:8px 0}
+.msheet nav a:last-child{border-bottom:0}
+.msheet .mh{font:700 11px var(--b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:20px 0 10px}
+.msheet .mrow{display:flex;gap:9px;flex-wrap:wrap}
+.msheet .mp{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 15px;font:700 14px var(--b);cursor:pointer}
+.msheet .mp.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:1024px){.mbtn{display:inline-flex}.top .nav{display:none}.top .langwrap{display:none}.top #snd{display:none}.top .in{justify-content:space-between}.wm{flex:1}}
+@media(prefers-reduced-motion:reduce){.msheet{transition:none}}
+
 .langbtn{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--line);background:none;
  color:var(--ink);font:600 12px var(--b);padding:7px 10px;border-radius:999px;cursor:pointer;line-height:1}
 .langbtn svg{width:9px;height:6px;opacity:.6;transition:transform .2s}
@@ -610,14 +631,14 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
 </style>
 
 
-<header class="top" id="top"><div class="in">
+<header class="top" id="top"><div class="in"><button class="mbtn" id="mbtn" type="button" aria-expanded="false" aria-controls="msheet" aria-label="Menu"><svg viewBox="0 0 17 13" aria-hidden="true" fill="none"><path class="l1" d="M1 1.5h15"/><path class="l2" d="M1 6.5h15"/><path class="l3" d="M1 11.5h15"/></svg></button>
   <a class="wm" href="#home">laudowicz<span class="dot">.</span></a>
   <nav class="nav" aria-label="Main"><a href="#work">Work and play</a><a href="#packages">Packages</a><a href="#advising">Advising</a><a href="#story">Story</a><a href="/blog/" data-r="#blog">Blog</a><a href="/about/" data-r="#about-me">About</a></nav>
   <div class="langwrap"><button type="button" class="langbtn" id="langBtn" aria-expanded="false" aria-haspopup="true" aria-label="Language"><span id="langNow">EN</span><svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="lang" id="lang" role="menu" aria-label="Language" hidden><button type="button" role="menuitem" aria-pressed="true" lang="en"><b>EN</b>English</button><button type="button" role="menuitem" aria-pressed="false" lang="de"><b>DE</b>Deutsch</button><button type="button" role="menuitem" aria-pressed="false" lang="pt"><b>PT</b>Português</button></div></div>
   <button class="lamp" id="snd" type="button" aria-label="Music">♪</button>
   <button class="lamp" id="lamp" type="button" aria-pressed="false" aria-label="Turn the lights off">☾</button>
   <a class="btn" href="#packages" data-call>Book a call</a>
-</div></header>
+</div></header><div class="mscrim" id="mscrim" hidden></div><div class="msheet" id="msheet" hidden><nav aria-label="Sections"><a href="#work">Work and play</a><a href="#packages">Packages</a><a href="#advising">Advising</a><a href="#story">Story</a><a href="/blog/" data-r="#blog">Blog</a><a href="/about/" data-r="#about-me">About</a></nav><p class="mh">Language</p><div class="mrow"><button type="button" class="mp on" data-ml="en">EN</button><button type="button" class="mp" data-ml="de">DE</button><button type="button" class="mp" data-ml="pt">PT</button></div><div class="mrow" style="margin-top:14px"><button type="button" class="mp" id="mMusic">&#9834;&nbsp; Play some music</button></div></div>
 
 <p class="lgnote" id="lgnote" hidden></p>
 <main id="home">
@@ -668,7 +689,7 @@ footer h4{font:400 17px "Permanent Marker",cursive;margin:0 0 4px}
     <a class="rowp play-only" href="https://urdhvareta.com" target="_blank" rel="noopener"><span class="n">05</span><img src="img/urdhvareta.jpg" alt="Urdhvareta website"><span><h3>Urdhvareta<span class="tag">after hours</span></h3><p class="l">Breath and energy practice I learned about in Thailand, turned into an interactive guide.</p></span><span class="go">Go check it out</span></a>
     <a class="rowp play-only" href="https://2ndcans.de" target="_blank" rel="noopener"><span class="n">06</span><img src="img/2ndcans.jpg" alt="2ndCans website"><span><h3>2ndCans<span class="tag">after hours · with a friend</span></h3><p class="l">My friend's idea, built together: used spray-can tops turned into wall pieces that hold your keys. In the making.</p></span><span class="go">2ndcans.de</span></a>
   </div>
-  <div class="hands nightv"><p class="eb">One hand washes the other 🤝</p><h3>Need <button type="button" class="slot" id="slot" aria-label="Show another idea">a website</button> built?</h3><p>Got a side project, a collective, a party or a little shop that needs something? I love helping out. You bring the idea, I bring the build, and we trade: a mix, a poster, a dinner, a favour back.</p><p class="cta"><a class="btn" href="/contact/" data-r="#contact" data-call>Tell me about you and your project</a> <span class="hand">Tap the word to spin it</span></p></div>
+  <div class="hands nightv"><p class="eb">One hand washes the other 🤝</p><h3>Need <button type="button" class="slot" id="slot" aria-label="Show another idea">a website</button> built?</h3><p>Got a side project, a collective, a small team or a little shop that needs something? I love helping out. You bring the idea, I bring the build, and we trade: a mix, a poster, a dinner, a favour back.</p><p class="cta"><a class="btn" href="/contact/" data-r="#contact" data-call>Tell me about you and your project</a> <span class="hand">Tap the word to spin it</span></p></div>
   <div class="fav dayv"><p class="favt"><b>Small favours 🎁</b> Quick sites I build for friends and family, in an evening or on my phone on the go. Latest: <a href="https://windradvogte.de/" target="_blank" rel="noopener">windradvogte.de</a></p><div class="diy"><span class="hand">Good news: you can totally do this yourself!</span><a class="btn ghost" href="/blog/build-your-own-website/" data-r="#post-diy">I'll show you how &rarr;</a></div></div>
 <div hidden></div>
 </div></section>
@@ -2309,7 +2330,7 @@ $("hi").addEventListener("click",function(){greet(true)});
 // lights
 var copy={day:{h:'I find the real problem, then fix it with your team. <span class="mk">Fast.<svg viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M4 13 L196 8 L8 21 L194 18 L10 31 L188 29"/></svg></span>',s:"Builder, designer, strategist. Not an agency: one person who works out what you actually need and helps make it happen.",w:"What I'm working on and playing with",e:"Right now"},
  night:{h:'The office is closed. <span class="mk">Stay a while.</span>',s:"This is the side with the music, the side projects and the things I do when nobody is paying me.",w:"What I play with after hours",e:"Lights off"}};
-$("lamp").addEventListener("click",function(){var n=R.classList.toggle("night"),c=n?copy.night:copy.day;$("heroPic").src=n?"img/me/2023-night.jpg":"img/me/2026.jpg";$("heroPic").alt=n?"Laurens at a festival":"Laurens doing a shaka, 2026";
+$("lamp").addEventListener("click",function(){var n=R.classList.toggle("night"),c=n?copy.night:copy.day;$("heroPic").src=n?"img/me/night-polaroid.jpg":"img/me/2026.jpg";$("heroPic").alt=n?"Laurens in Lisbon, as an old Polaroid":"Laurens doing a shaka, 2026";
  this.setAttribute("aria-pressed",String(n));this.textContent=n?"☀":"☾";this.setAttribute("aria-label",n?"Turn the lights on":"Turn the lights off");
  $("h1").innerHTML=c.h;$("sub").textContent=c.s;$("workH").textContent=c.w;$("workE").textContent=c.e;greet(false)});
 // shrinking bar and music pill
@@ -2341,6 +2362,23 @@ function drawPl(){var d=PL[mood][src],nm=src==="spotify"?"Spotify":"SoundCloud",
 function showPl(big){open=true;asked=true;$("music").classList.remove("on");var P=$("player");P.classList.remove("gone");P.classList.toggle("small",!big);$("plExp").setAttribute("aria-expanded",String(big));$("snd").setAttribute("aria-pressed","true")}
 function hidePl(){open=false;$("player").classList.add("gone");$("snd").setAttribute("aria-pressed","false");var b=$("snd");setTimeout(function(){b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump")},380)}
 $("snd").addEventListener("click",function(){open?hidePl():showPl(true)});
+(function(){var b=document.getElementById("mbtn"),sh=document.getElementById("msheet"),sc=document.getElementById("mscrim");if(!b||!sh||!sc)return;var op=false,tm=null;
+ function set(v){op=v;b.setAttribute("aria-expanded",String(v));if(tm)clearTimeout(tm);
+  if(v){sh.hidden=false;sc.hidden=false;document.documentElement.style.overflow="hidden";document.documentElement.classList.add("mopen");var t=document.getElementById("top");sh.style.paddingTop=((t?t.getBoundingClientRect().height:70)+18)+"px";requestAnimationFrame(function(){sh.classList.add("on");sc.classList.add("on")})}
+  else{sh.classList.remove("on");sc.classList.remove("on");document.documentElement.style.overflow="";document.documentElement.classList.remove("mopen");tm=setTimeout(function(){if(!op){sh.hidden=true;sc.hidden=true}},420)}}
+ b.addEventListener("click",function(){set(!op)});
+ sc.addEventListener("click",function(){set(false)});
+ addEventListener("keydown",function(e){if(e.key==="Escape"&&op)set(false)});
+ addEventListener("resize",function(){if(innerWidth>1024&&op)set(false)});
+ sh.addEventListener("click",function(e){
+  if(e.target.closest("a")){set(false);return}
+  var l=e.target.closest("button[data-ml]");
+  if(l){var r=document.querySelector('#lang button[lang="'+l.dataset.ml+'"]');if(r)r.click();
+   sh.querySelectorAll("button[data-ml]").forEach(function(x){x.classList.toggle("on",x===l)});return}
+  if(e.target.closest("#mMusic")){set(false);var sn=document.getElementById("snd");if(sn)sn.click()}
+ });
+})();
+
 function musicIn(){var m=$("music");if(mShown||mGone||asked)return;mShown=true;m.classList.add("on","bloop");setTimeout(function(){m.classList.remove("bloop");setTimeout(function(){if(!mGone&&!asked){m.classList.add("nudge");setTimeout(function(){m.classList.remove("nudge")},1700)}},1800)},760)}
 (function(){var m=$("music"),sx=0,dx=0,drag=false;
  function fly(){mGone=true;asked=true;m.classList.remove("drag");m.style.transition="transform .5s cubic-bezier(.3,0,.6,1),opacity .45s ease";m.style.transform="translate(calc(-50% + "+(dx>0?520:-520)+"px),0) rotate("+(dx>0?18:-18)+"deg)";m.style.opacity="0";setTimeout(function(){m.classList.remove("on");m.classList.add("gone");m.style.transition="";m.style.transform="";m.style.opacity=""},560)}
@@ -2483,7 +2521,7 @@ var C=["#ffffff","#ffffff","#ff8fc0","#b99cff","#7cc8ff","#ffe14d","#ff8a1f"],N=
 for(var i=0;i<N;i++){var d=document.createElement("i"),sz=4+Math.random()*10,c=C[i%C.length];d.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+(Math.random()*110-5)+"vw;top:"+(Math.random()*100)+"vh;background:radial-gradient(circle,"+c+" 0,"+c+" 35%,transparent 70%);box-shadow:0 0 "+(sz*1.5)+"px "+c;D.appendChild(d);
  var dx=(30+Math.random()*25)*(Math.random()<.85?1:-1);d.animate([{transform:"translateX(0)",opacity:0},{opacity:1,offset:.12},{opacity:.9,offset:.55},{transform:"translateX("+dx+"vw)",opacity:0}],{duration:T*(0.8+Math.random()*.25),delay:Math.random()*600,easing:"cubic-bezier(.3,.1,.6,1)",fill:"both"})}
 setTimeout(function(){B.classList.remove("spin");D.remove();on=0},T+800)})})();
-(function(){var S=document.getElementById("slot");if(!S)return;var W=["a website","a poster","a playlist","a logo","a little shop","an app","a flyer","a party page","a merch drop","a pitch deck"],i=0;
+(function(){var S=document.getElementById("slot");if(!S)return;var W=["a website","an app","a platform","an AI assistant","an internal tool","a dashboard","a prototype","a marketplace","an automation","a little shop","a merch drop","a flyer","a logo","a pitch deck"],i=0;
 function spin(){var n=0,t=setInterval(function(){i=(i+1)%W.length;S.textContent=W[i];n++;if(n>6){clearInterval(t);S.classList.remove("roll");void S.offsetWidth;S.classList.add("roll")}},70)}
 S.addEventListener("click",spin);setInterval(function(){if(document.documentElement.classList.contains("night")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){i=(i+1)%W.length;S.textContent=W[i];S.classList.remove("roll");void S.offsetWidth;S.classList.add("roll")}},2600)})();
 (function(){var R=document.documentElement,box=null,T=[],onS=null;
