@@ -2330,7 +2330,7 @@ var LG={"Okai":"logos/okai.svg","Uber":"logos/uber.svg","Bird":"logos/bird.svg",
 var strip=names.map(function(n){return LG[n]?'<span><img src="'+LG[n]+'" alt="'+n+'"'+""+'></span>':'<span class="lw">'+n+'</span>'}).join("");
 $("logos").innerHTML=strip+strip.replace(/alt="[^"]*"/g,'alt="" aria-hidden="true"');
 // greetings
-var day=["Aloha","Hey there","Olá","你好"],night=["Oh, hello there…","So, what are you doing here?","You found the back room.","Wasn't expecting anyone this late.","Feierabend. (German for: work is done for today.)"],gi=0;
+var day=["Aloha","Hey there","Hallöchen","Olá","你好"],night=["Oh, hello there…","So, what are you doing here?","You found the back room.","Wasn't expecting anyone this late.","Feierabend. (German for: work is done for today.)"],gi=0;
 function greet(next){var L=R.classList.contains("night")?night:day;if(next)gi=(gi+1)%L.length;else gi=0;$("hiTxt").textContent=L[gi]}
 $("hi").addEventListener("click",function(){greet(true)});
 // lights
